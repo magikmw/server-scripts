@@ -1,0 +1,45 @@
+#! /bin/env sh
+
+uptime () { read secs x </proc/uptime;
+printf "%s days, %s hours, %s minutes\n" $(($((${secs%.*}/3600))/24)) $(($((${secs%.*}/3600))%24)) $(($((${secs%.*}%3600))/60)); }
+
+clear
+
+INTERFACE='ppp0'
+
+ADDRESS=`ip addr show $INTERFACE | grep inet | awk {'print $2'}`
+if [ -z $ADDRESS ] # failsafe in case the adress was not found (INTERFACE wrong?)
+then
+    ADDRESS="unknown"
+fi
+
+CURRENTKERNEL=`uname -r`
+READYKERNEL=`yaourt -Q linux | awk {'print $2'}`
+
+MEMFREE=`free -k | grep '+' | awk {'print $3'}`
+MEMTOTAL=`cat /proc/meminfo | grep MemTotal | awk {'print $2'}`
+
+DISK='/dev/sda7'
+
+DISKFREE=`df -hm | grep $DISK | awk {'print $4'}`
+DISKTOTAL=`df -hm | grep $DISK | awk {'print $2'}`
+
+printf "===================================================
++ Welcome to %s %s
+=================: System Data :===================
++ Address = %s
++ Kernel = Current: %s Ready: %s
++ Uptime = `uptime`
++ Memory Free = %i kB of %i kB Total
++ Diskspace Free = %s MB of %s MB Total
+===================================================
++ Items in your stodo: `stodo -c`
+`stodo -l`
+===================================================
++ Packages ready for update: `yaourt -Qua | wc -l`
+===================================================\n" \
+$HOSTNAME $USER \
+$ADDRESS \
+$CURRENTKERNEL $READYKERNEL \
+$MEMFREE $MEMTOTAL \
+$DISKFREE $DISKTOTAL

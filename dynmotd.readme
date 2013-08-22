@@ -1,0 +1,45 @@
+-----
+dynmotd - dynamic message of the day
+-----
+
+Fetches and displays various info about the system on login.
+
+USE:
+1. Change the variables and the message to your taste.
+2.1. For all users:
+        Put a copy of the script in /etc/profile.d/ with an .sh extension
+2.2. For yourself:
+        Add a command to start the script in your ~/.profile
+3. Login via tty or ssh
+
+-----
+
+Variables:
+
+INTERFACE       - your internet connection interface for the IP address grep
+ADDRESS         - grep of your IP address of specified interface
+
+CURRENTKERNEL   - Current kernel version
+READYKERNEL     - Installed kernel version, ready for the next boot [Distro specific]
+
+MEMFREE         - Free memory in kB [Currently set for standalone/xen systems]
+MEMTOTAL        - Total available memory in kB
+
+DISK            - Partition to grep info about
+
+DISKFREE        - Free space left on the specified partition
+DISKTOTAL       - Total available space on the specified partition
+
+uptime() returns a string of uptime formated to "x days, y hours, z minutes"
+
+-----
+
+The script in it's current form also uses stodo <https://github.com/magikmw/stodo>
+to display user's TODO notes.
+
+yaourt -Qua polls the local database and displays a list of packages ready for update.
+You can also remove the wc -l pipe and just list them all (works ok if there are not too many).
+A cron job executes 'yaourt -Sya' every 12h for above to work.
+
+Similiar update notification can be achieved on Ubuntu/Debian systems with the
+'update-motd-updates-available' tool

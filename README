@@ -5,7 +5,7 @@ by Michał Walczak <mw@michalwalczak.eu>
 License: WTFPLv2 (included)
 -----
 
-Repository for some scripts I use on my server for various things.
+Repository for some scripts I use on my [Arch Linux] server for various things.
 Hopefuly this will grow as I up my server automation and script-fu.
 
 Check *.readme files for specific info about each script.
@@ -13,7 +13,7 @@ Check *.readme files for specific info about each script.
 -----
 
 Currently included:
-
+    * (sh) dynmotd - dynamic message of the day
 
 -----
 
