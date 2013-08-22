@@ -5,9 +5,9 @@ printf "%s days, %s hours, %s minutes\n" $(($((${secs%.*}/3600))/24)) $(($((${se
 
 clear
 
-INTERFACE='ppp0'
+INTERFACE='eth0'
 
-ADDRESS=`ip addr show $INTERFACE | grep inet | awk {'print $2'}`
+ADDRESS=`ip addr show $INTERFACE | grep global | awk {'print $2'}`
 if [ -z $ADDRESS ] # failsafe in case the adress was not found (INTERFACE wrong?)
 then
     ADDRESS="unknown"
@@ -34,7 +34,6 @@ printf "===================================================
 + Diskspace Free = %s MB of %s MB Total
 ===================================================
 + Items in your stodo: `stodo -c`
-`stodo -l`
 ===================================================
 + Packages ready for update: `yaourt -Qua | wc -l`
 ===================================================\n" \
